@@ -18,7 +18,7 @@ while 1:
             print("Unity Sent: " + str(data))
             client.send("pong")
         else:
-            client.send("Bye!")
+            client.send("Bye!!!!")
             print("Unity Sent Something Else: " + str(data))
             client.close()
             break
