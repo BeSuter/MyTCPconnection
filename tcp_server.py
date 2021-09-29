@@ -13,12 +13,12 @@ while 1:
     client, address = s.accept()
     print(f"Client connected. Address is {address}")
     while 1:
-        data = client.recv(size)
+        data = client.recv(size).decode('utf-16')
         if data == "ping":
             print("Unity Sent: " + str(data))
-            client.send("pong")
+            client.send("pong".encode('utf-16'))
         else:
-            client.send("Bye!!!!")
+            client.send("Bye!!!!".encode('utf-16'))
             print("Unity Sent Something Else: " + str(data))
             client.close()
             break
