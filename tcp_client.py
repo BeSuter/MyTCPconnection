@@ -1,4 +1,7 @@
+import cv2
+import json
 import socket
+
 
 # Create a TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -23,6 +26,14 @@ try:
         data = sock.recv(16).decode('utf-16')
         amount_received += len(data)
         print(f"received {data}")
+
+    vid = cv2.VideoCapture(1)
+    ret, frame = vid.read()
+    data = json.dumps(frame.tolist())
+    print("Sending one video frame")
+    header = '%d\n' % len(data)
+    sock.sendall(header.encode('utf-16'))
+    sock.sendall(data.encode('utf-16'))
 
 finally:
     print("closing socket")

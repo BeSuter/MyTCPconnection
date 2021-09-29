@@ -20,5 +20,5 @@ while 1:
         else:
             client.send("Bye!!!!".encode('utf-16'))
             print("Unity Sent Something Else: " + str(data))
-            client.close()
-            break
+            # client.close()
+            # break
