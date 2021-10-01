@@ -57,6 +57,7 @@ while 1:
         if data == "ping":
             print("Unity Sent: " + str(data) + "sending back one Lepton frame")
             data = cam.get_frame()
+            data = data.tolist()
             send(client, data)
             print("Sent one frame... ")
             # client.send("pong".encode('utf-16'))
