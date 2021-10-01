@@ -2,6 +2,9 @@ import cv2
 import json
 import socket
 
+import numpy as np
+import matplotlib.pyplot as plt
+
 
 def recv(server):
     # read the length of the data, letter by letter until we reach EOL
@@ -44,8 +47,13 @@ try:
     sock.sendall(message)
 
     data = recv(sock)
-    print("Received data was: ")
-    print(data)
+    print("Received data has shape: ")
+    print(np.shape(data))
+    data = np.asarray(data)
+    print("Maximum Temperature is ", np.max(data), " C. Minimum Temperature is ", np.min(data), " C.")
+    plt.figure()
+    plt.imshow(data, interpolation='none')
+    plt.show()
 
     """# Look for the response
     amount_received = 0
