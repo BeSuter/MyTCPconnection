@@ -47,7 +47,7 @@ s.listen(backlog)
 
 while 1:
     print("Looking for a client...")
-    client, address = s.accept
+    client, address = s.accept()
     print(f"Client connected. Address is {address}")
     print("Starting Lepton camera")
     cam = LeptonCam()
