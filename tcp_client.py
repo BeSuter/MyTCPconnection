@@ -8,7 +8,7 @@ def recv(server):
     length_str = ''
     char = server.recv(1)
     while char != b'\n':
-        length_str += char
+        length_str += char.decode('utf-8')
         if length_str == b'Bye!!!!':
             print("The server said bye... :/ ")
             break
