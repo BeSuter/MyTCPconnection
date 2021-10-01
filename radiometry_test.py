@@ -313,7 +313,8 @@ def ktoc(val):
 def raw_to_8bit(data):
     cv2.normalize(data, data, 0, 65535, cv2.NORM_MINMAX)
     np.right_shift(data, 8, data)
-    return cv2.cvtColor(np.uint8(data), cv2.COLOR_GRAY2RGB)
+    # return cv2.cvtColor(np.uint8(data), cv2.COLOR_GRAY2RGB)
+    return np.uint8(data)
 
 
 def display_temperature(img, val_k, loc, color):
@@ -373,13 +374,19 @@ def main():
                     data = q.get(True, 500)
                     if data is None:
                         break
-                    data = cv2.resize(data[:,:], (640, 480))
+                    # data = cv2.resize(data[:,:], (640, 480))
                     minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(data)
                     img = raw_to_8bit(data)
                     print("")
                     print("Print frame has shape: ", np.shape(img))
                     print("Image: ")
+                    print(img)
+                    print("")
+                    print("Image ktoc: ")
                     print(ktoc(img))
+                    print("")
+                    print("Image ktof: ")
+                    print(ktof(img))
                     # display_temperature(img, minVal, minLoc, (255, 0, 0))
                     # display_temperature(img, maxVal, maxLoc, (0, 0, 255))
                     # cv2.imshow('Lepton Radiometry', img)
@@ -391,6 +398,7 @@ def main():
                         print("Time is up... stopping")
                         print("")
                         break
+                    break
             finally:
                 libuvc.uvc_stop_streaming(devh)
 
