@@ -6,19 +6,19 @@ import socket
 def recv(server):
     # read the length of the data, letter by letter until we reach EOL
     length_str = ''
-    char = server.recv(1).decode('utf-16')
+    char = server.recv(1)
     while char != '\n':
         length_str += char
         if length_str == "Bye!!!!":
             print("The server said bye... :/ ")
             break
-        char = server.recv(1).decode('utf-16')
+        char = server.recv(1)
     total = int(length_str)
     # use a memoryview to receive the data chunk by chunk efficiently
     view = memoryview(bytearray(total))
     next_offset = 0
     while total - next_offset > 0:
-        recv_size = server.recv_into(view[next_offset:], total - next_offset).decode('utf-16')
+        recv_size = server.recv_into(view[next_offset:], total - next_offset)
         next_offset += recv_size
     try:
         deserialized = json.loads(view.tobytes())
@@ -38,9 +38,9 @@ sock.connect(server_address)
 try:
     # Send data
     print("Sending a message...")
-    message = "ping"
+    message = 'ping'
     print(f"sending {message}")
-    sock.sendall(message.encode('utf-16'))
+    sock.sendall(message)
 
     data = recv(sock)
     print("Received data was: ")
