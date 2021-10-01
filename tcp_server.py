@@ -17,7 +17,7 @@ def send(_client, _data):
     except (TypeError, ValueError):
         raise Exception('You can only send JSON-serializable data')
     # send the length of the serialized data first
-    header = '%d\n' % len(serialized)
+    header = b'%d\n' % len(serialized)
     _client.send(header)
     # send the serialized data
     _client.sendall(serialized)
@@ -54,15 +54,15 @@ while 1:
 
     while 1:
         data = client.recv(size)
-        if data == "ping":
-            print("Unity Sent: " + str(data) + "sending back one Lepton frame")
+        if data == b'ping':
+            print("Unity Sent: " + str(data.decode('utf-8')) + "sending back one Lepton frame")
             data = cam.get_frame()
             data = data.tolist()
             send(client, data)
             print("Sent one frame... ")
             # client.send("pong".encode('utf-16'))
         else:
-            client.send('Bye!!!!')
-            print("Unity Sent Something Else: " + str(data))
+            client.send(b'Bye!!!!')
+            print("Unity Sent Something Else: " + str(data.decode('utf-8')))
             # client.close()
             # break

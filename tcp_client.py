@@ -7,13 +7,14 @@ def recv(server):
     # read the length of the data, letter by letter until we reach EOL
     length_str = ''
     char = server.recv(1)
-    while char != '\n':
+    while char != b'\n':
         length_str += char
-        if length_str == "Bye!!!!":
+        if length_str == b'Bye!!!!':
             print("The server said bye... :/ ")
             break
         char = server.recv(1)
     total = int(length_str)
+    print("Total is: ", total)
     # use a memoryview to receive the data chunk by chunk efficiently
     view = memoryview(bytearray(total))
     next_offset = 0
@@ -38,7 +39,7 @@ sock.connect(server_address)
 try:
     # Send data
     print("Sending a message...")
-    message = 'ping'
+    message = b'ping'
     print(f"sending {message}")
     sock.sendall(message)
 
