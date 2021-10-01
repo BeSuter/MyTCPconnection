@@ -1,6 +1,7 @@
 from ctypes import *
 import platform
 
+import sh
 import time
 import cv2
 import numpy as np
@@ -344,7 +345,8 @@ def main():
             exit(1)
 
         try:
-            res = libuvc.uvc_open(dev, byref(devh))
+            with sh.contrib.sudo:
+                res = libuvc.uvc_open(dev, byref(devh))
             if res < 0:
                 print("uvc_open error")
                 exit(1)
