@@ -375,7 +375,13 @@ def main():
                     if data is None:
                         break
                     # data = cv2.resize(data[:,:], (640, 480))
-                    minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(data)
+                    # minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(data)
+                    print("")
+                    print("Min, Max, minLoc and maxLoc values: ")
+                    print(cv2.minMaxLoc(data))
+                    print("")
+                    print("Raw image: ")
+                    print(data)
                     img = raw_to_8bit(data)
                     print("")
                     print("Print frame has shape: ", np.shape(img))
