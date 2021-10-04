@@ -55,7 +55,7 @@ while 1:
     while 1:
         data = client.recv(size)
         if data == b'ping':
-            print("Unity Sent: " + str(data.decode('utf-8')) + "sending back one Lepton frame")
+            print("Unity Sent: " + str(data.decode('utf-8')) + " sending back one Lepton frame")
             data = cam.get_frame()
             data = data.tolist()
             send(client, data)
