@@ -63,6 +63,6 @@ while 1:
             # client.send("pong".encode('utf-16'))
         else:
             client.send(b'Bye!!!!')
-            print("Unity Sent Something Else: " + str(data.decode('utf-8')))
+            # print("Unity Sent Something Else: " + str(data.decode('utf-8')))
             # client.close()
             # break

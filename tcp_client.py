@@ -43,7 +43,7 @@ try:
     # Send data
     print("Sending a message...")
     message = b'ping'
-    print(f"sending {message}")
+    print(f"sending {message.decode('utf-8')}")
     sock.sendall(message)
 
     data = recv(sock)
