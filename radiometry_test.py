@@ -106,9 +106,12 @@ class LeptonCam:
 
     @staticmethod
     def get_frame(temperature):
-        data = q.get(True, 500)
-        data = (data - 27315) / 100.00
-        data[data < temperature] = 0
+        data = []
+        frame = q.get(True, 500)
+        frame = (frame - 27315) / 100.00
+        x, y = np.where(frame >= temperature)
+        for ii, jj in zip(x, y):
+            data.append((ii, jj, frame[ii, jj]))
 
         return data
 
