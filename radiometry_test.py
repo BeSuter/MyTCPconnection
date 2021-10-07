@@ -112,6 +112,7 @@ class LeptonCam:
         x, y = np.where(frame >= temperature)
         for ii, jj in zip(x, y):
             data.append([np.int16(ii), np.int16(jj), np.float16(frame[ii, jj])])
+        data = np.asarray(data)
 
         return data
 
