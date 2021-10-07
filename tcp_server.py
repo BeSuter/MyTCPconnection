@@ -18,6 +18,7 @@ def send(_client, _data):
         raise Exception('You can only send JSON-serializable data')
     # send the length of the serialized data first
     header = b'%d\n' % len(serialized)
+    print(f"Header is {header}")
     _client.send(header)
     # send the serialized data
     _client.sendall(serialized)
