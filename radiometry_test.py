@@ -105,9 +105,10 @@ class LeptonCam:
             pass
 
     @staticmethod
-    def get_frame():
+    def get_frame(temperature):
         data = q.get(True, 500)
         data = (data - 27315) / 100.00
+        data[data < temperature] = 0
 
         return data
 

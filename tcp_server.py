@@ -54,10 +54,15 @@ while 1:
     cam = LeptonCam()
 
     while 1:
-        data = client.recv(size)
-        if data == b'ping':
-            print("Unity Sent: " + str(data.decode('utf-8')) + " sending back one Lepton frame")
-            data = cam.get_frame()
+        temp_str = ""
+        char = client.recv(1)
+        while char != b'\n':
+            temp_str += char.decode('utf-8')
+            char = client.recv(1)
+        temperature = float(temp_str)
+        if len(temp_str) > 0:
+            print("Unity Sent: " + temp_str + " sending back one Lepton frame")
+            data = cam.get_frame(temperature)
             data = data.tolist()
             send(client, data)
             print("Sent one frame... ")
