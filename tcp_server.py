@@ -13,7 +13,7 @@ from radiometry_test import *
 
 def send(_client, _data, _pixel_count):
     try:
-        serialized = json.dumps(_data).encode('utf-8')
+        serialized = json.dumps({'data': _data}).encode('utf-8')
     except (TypeError, ValueError):
         raise Exception('You can only send JSON-serializable data')
     # send the length of the serialized data first
