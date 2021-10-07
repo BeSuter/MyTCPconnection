@@ -63,7 +63,7 @@ while 1:
         if len(temp_str) > 0:
             print("Unity Sent: " + temp_str + " sending back one Lepton frame")
             data = cam.get_frame(temperature)
-            data = data.tolist()
+            # data = data.tolist()
             send(client, data)
             print("Sent one frame... ")
             # client.send("pong".encode('utf-16'))
