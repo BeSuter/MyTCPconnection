@@ -11,15 +11,18 @@ sys.path.insert(0, os.path.abspath("."))
 from radiometry_test import *
 
 
-def send(_client, _data):
+def send(_client, _data, _pixel_count):
     try:
         serialized = json.dumps(_data).encode('utf-8')
     except (TypeError, ValueError):
         raise Exception('You can only send JSON-serializable data')
     # send the length of the serialized data first
-    header = b'%d\n' % len(serialized)
-    print(f"Header is {header}")
-    _client.send(header)
+    header1 = b'%d\n' % len(serialized)
+    header2 = b'%d\n' % _pixel_count
+    print(f"First Header is {header1}")
+    print(f"Second Header is {header2}")
+    _client.send(header1)
+    _client.send(header2)
     # send the serialized data
     _client.sendall(serialized)
 
@@ -62,9 +65,9 @@ while 1:
         temperature = float(temp_str)
         if len(temp_str) > 0:
             print("Unity Sent: " + temp_str + " sending back one Lepton frame")
-            data = cam.get_frame(temperature)
+            pixel_count, data = cam.get_frame(temperature)
             data = data.tolist()
-            send(client, data)
+            send(client, data, pixel_count)
             print("Sent one frame... ")
             # client.send("pong".encode('utf-16'))
         else:

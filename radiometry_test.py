@@ -106,15 +106,19 @@ class LeptonCam:
 
     @staticmethod
     def get_frame(temperature):
+        pixel_count = 0
         data = []
         frame = q.get(True, 500)
         frame = (frame - 27315) / 100.00
         x, y = np.where(frame >= temperature)
         for ii, jj in zip(x, y):
-            data.append([np.int16(ii), np.int16(jj), np.float16(frame[ii, jj])])
+            data.append(np.int16(ii))
+            data.append(np.int16(jj))
+            data.append(np.float16(frame[ii, jj]))
+            pixel_count += 1
         data = np.asarray(data)
 
-        return data
+        return pixel_count, data
 
     def stop_stream(self):
         libuvc.uvc_stop_streaming(self.devh)
