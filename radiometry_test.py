@@ -108,6 +108,7 @@ class LeptonCam:
     @staticmethod
     def get_frame(temperature):
         print(f"Getting a frame")
+        print(f"q has size {q.qsize()}")
         pixel_count = 0
         data = []
         frame = q.get(True, 500)
