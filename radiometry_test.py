@@ -106,6 +106,7 @@ class LeptonCam:
 
     @staticmethod
     def get_frame(temperature):
+        print("Getting a frame")
         pixel_count = 0
         data = []
         frame = q.get(True, 500)
@@ -117,7 +118,7 @@ class LeptonCam:
             data.append(np.float16(frame[ii, jj]))
             pixel_count += 1
         data = np.asarray(data)
-
+        print(f"Obtained a frame: pixel_count = {pixel_count}")
         return pixel_count, data
 
     def stop_stream(self):
