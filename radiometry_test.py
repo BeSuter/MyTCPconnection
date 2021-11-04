@@ -27,6 +27,7 @@ def py_frame_callback(frame, userptr):
         return
 
     if not q.full():
+        print(f"data is {data}")
         q.put(data)
 
 
@@ -106,7 +107,7 @@ class LeptonCam:
 
     @staticmethod
     def get_frame(temperature):
-        print(f"Getting a frame, q.full is {q.full()}")
+        print(f"Getting a frame")
         pixel_count = 0
         data = []
         frame = q.get(True, 500)
